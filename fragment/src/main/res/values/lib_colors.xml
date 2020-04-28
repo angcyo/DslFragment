@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!--状态栏的颜色-->
+    <color name="status_bar_color">#60000000</color>
+    <!--导航栏的颜色-->
+    <color name="navigation_bar_color">@color/colorPrimary</color>
+    <!--API27 底部导航分割线的颜色-->
+    <color name="navigation_bar_divider_color">@color/colorPrimary</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="lib_white">#FFFFFF</color>
+
+</resources>

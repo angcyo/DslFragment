@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseAppTheme" parent="BaseTheme">
+        <!--开启此属性, 效果等于 SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN, 半透明状态栏效果 -->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
+        <item name="android:navigationBarDividerColor">@color/navigation_bar_divider_color</item>
+        <!--<item name="android:windowLightStatusBar">true</item>-->
+        <!--<item name="android:windowLightNavigationBar">true</item>-->
+        <!--<item name="android:isLightTheme">true</item>-->
+
+        <!--转场动画相关-->
+        <!--https://www.jianshu.com/p/4d23b8a37a5d-->
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+    </style>
+
+    <style name="BaseWhiteAppTheme" parent="BaseAppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/lib_white</item>
+    </style>
+
+    <style name="BasePrimaryAppTheme" parent="BaseWhiteAppTheme">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="BaseSplashTheme" parent="BaseTranStatusTheme">
+        <item name="android:navigationBarColor">@color/transparent</item>
+    </style>
+
+    <!--透明状态栏主题, 多用于启动页, 透明状态栏会影响 dialog中 EditText弹出键盘-->
+    <style name="BaseTranStatusTheme" parent="BaseWhiteAppTheme">
+        <item name="android:windowTranslucentStatus">false</item>
+        <!--全透明状态栏-->
+        <item name="android:statusBarColor">@color/transparent</item>
+    </style>
+
+    <style name="BaseTranTheme" parent="BaseAppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <!--透明Activity 主题-->
+    <style name="BaseTranslucentTheme" parent="BaseNoTitleBarTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!--AppCompatActivity透明主题, 状态栏也透明-->
+    <style name="TranslucentActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>
