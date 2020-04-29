@@ -39,6 +39,13 @@ abstract class AbsLifecycleFragment : AbsFragment(), IFragment {
      * https://developer.android.com/guide/topics/resources/animation-resource
      * */
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
+        /*alpha
+        scaleX/scaleY
+        translateX/translateY
+        rotation*/
+        if (transit == 0) {
+            return FragmentAnimator.loadAnimator(attachContext, nextAnim)
+        }
         return super.onCreateAnimator(transit, enter, nextAnim)
     }
 

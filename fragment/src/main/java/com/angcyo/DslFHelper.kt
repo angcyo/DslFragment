@@ -13,10 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import com.angcyo.base.*
-import com.angcyo.fragment.BuildConfig
-import com.angcyo.fragment.IFragment
-import com.angcyo.fragment.R
-import com.angcyo.fragment.dslBridge
+import com.angcyo.fragment.*
 
 
 /**
@@ -72,19 +69,19 @@ class DslFHelper(
 
     @AnimatorRes
     @AnimRes
-    var showEnterAnimRes: Int = 0
+    var showEnterAnimRes: Int = FragmentAnimator.DEFAULT_SHOW_ENTER_ANIMATOR
 
     @AnimatorRes
     @AnimRes
-    var showExitAnimRes: Int = 0
+    var showExitAnimRes: Int = FragmentAnimator.DEFAULT_SHOW_EXIT_ANIMATOR
 
     @AnimatorRes
     @AnimRes
-    var removeEnterAnimRes: Int = 0
+    var removeEnterAnimRes: Int = FragmentAnimator.DEFAULT_REMOVE_ENTER_ANIMATOR
 
     @AnimatorRes
     @AnimRes
-    var removeExitAnimRes: Int = 0
+    var removeExitAnimRes: Int = FragmentAnimator.DEFAULT_REMOVE_EXIT_ANIMATOR
 
     /**执行操作之前, 需要保证的权限. 无权限, 则取消操作*/
     val permissions = mutableListOf<String>()
@@ -481,6 +478,30 @@ class DslFHelper(
             lastFragment?.let {
                 setPrimaryNavigationFragment(it)
                 setMaxLifecycle(it, Lifecycle.State.RESUMED)
+            }
+
+            //由于setCustomAnimations动画只会在add和remove F的时候才会触发.
+            (when {
+                showFAnim -> fmFragmentList.getOrNull(fmFragmentList.lastIndex - 1)
+                removeFAnim -> lastFragment
+                else -> null
+            })?.run {
+                //removeEnterAnimRes showExitAnimRes 动画触发
+                val animRes = if (showFAnim) showExitAnimRes else removeEnterAnimRes
+                if (isAdded && view != null && animRes != 0) {
+                    if (view.isVisible()) {
+                        view?.apply {
+                            FragmentAnimator.loadAnimator(context, animRes)?.apply {
+                                setTarget(view)
+                                start()
+                            }.elseNull {
+                                animationOf(context, animRes)?.apply {
+                                    startAnimation(this)
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             onConfigTransaction(this)

@@ -1,5 +1,7 @@
 package com.angcyo.base
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
@@ -7,6 +9,11 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.annotation.AnimRes
+import androidx.annotation.AnimatorRes
 import androidx.core.app.ActivityCompat
 
 /**
@@ -107,3 +114,45 @@ fun Intent.queryActivities(context: Context, queryFlag: Int = 0): List<ResolveIn
     val packageManager = context.packageManager
     return packageManager.queryIntentActivities(this, queryFlag)
 }
+
+fun View?.isVisible() = this?.visibility == View.VISIBLE
+
+/**如果为空, 则执行[action].
+ * 原样返回*/
+fun <T> T?.elseNull(action: () -> Unit = {}): T? {
+    if (this == null) {
+        action()
+    }
+    return this
+}
+
+/**从指定资源id中, 加载动画[Animation]*/
+fun animationOf(context: Context, @AnimRes id: Int): Animation? {
+    try {
+        if (id == 0 || id == -1) {
+            return null
+        }
+        return AnimationUtils.loadAnimation(context, id)
+    } catch (e: Exception) {
+        //L.w(e)
+        return null
+    }
+}
+
+/**从指定资源id中, 加载动画[Animator]*/
+fun animatorOf(context: Context, @AnimatorRes id: Int): Animator? {
+    try {
+        if (id == 0 || id == -1) {
+            return null
+        }
+        return AnimatorInflater.loadAnimator(context, id)
+    } catch (e: Exception) {
+        //L.w(e)
+        return null
+    }
+}
+
+fun Context.getScreenWidth() = resources.displayMetrics.widthPixels
+
+/**排除了显示的状态栏高度和导航栏高度*/
+fun Context.getScreenHeight() = resources.displayMetrics.heightPixels
