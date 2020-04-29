@@ -29,7 +29,7 @@ object FragmentAnimator {
     var DEFAULT_REMOVE_ENTER_ANIMATOR = R.anim.lib_x_remove_enter_holder
     var DEFAULT_REMOVE_EXIT_ANIMATOR = R.anim.lib_x_remove_exit_holder
 
-    fun loadAnimator(context: Context, anim: Int): Animator? {
+    var loadAnimator: (context: Context, anim: Int) -> Animator? = { context, anim ->
         val sw = context.getScreenWidth().toFloat()
         val duration = ANIM_DURATION
 
@@ -37,7 +37,7 @@ object FragmentAnimator {
         objectAnimator.duration = duration
         objectAnimator.interpolator = AccelerateDecelerateInterpolator()
 
-        return when (anim) {
+        when (anim) {
             R.anim.lib_x_show_enter_holder -> {
                 objectAnimator.setPropertyName("translationX")
                 objectAnimator.setFloatValues(sw, 0f)
