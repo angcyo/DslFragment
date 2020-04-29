@@ -26,6 +26,8 @@
 
 在`Fragment`中有`dslChildFHelper`扩展方法.
 
+> 注意:`Fragment`容器的id请使用`R.id.fragment_container`, 否则在操作`DslFHelper`需要指定`containerViewId`变量
+
 ## 显示`Fragment`
 
 在无特殊说明的情况下, 均支持批量操作`Fragment`, 比如可以同时显示多个`Fragment`和移除多个`Fragment`.
@@ -65,6 +67,32 @@ dslFHelper {
 }
 ```
 
+## 动画处理
+
+可以通过一下变量配置动画,支持`补间动画`和`属性动画`:
+
+```kotlin
+ @AnimatorRes
+ @AnimRes
+ var showEnterAnimRes: Int
+ @AnimatorRes
+ @AnimRes
+ var showExitAnimRes: Int
+ @AnimatorRes
+ @AnimRes
+ var removeEnterAnimRes: Int
+ @AnimatorRes
+ @AnimRes
+ var removeExitAnimRes: Int
+```
+
+`补间动画`不需要额外的处理, 即可达到效果.
+如果是`属性动画`, 并且需要100%宽度, 100%高度这样的数据, 就需要额外的处理方式了.
+
+如果是继承`AbsLifecycleFragment`, 则不需要额外处理.
+
+如果不是继承的`AbsLifecycleFragment`, 那么只需要在`Fragment`中的`onCreateAnimator`返回`return FragmentAnimator.loadAnimator(context, nextAnim)`即可.
+
 ## 关于`返回`按键的处理
 
 ## 1.
@@ -103,7 +131,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation 'com.github.angcyo:DslFragment:1.0.0'
+    implementation 'com.github.angcyo:DslFragment:1.0.1'
 }
 ```
 
